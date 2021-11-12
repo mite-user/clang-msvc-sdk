@@ -160,43 +160,43 @@ if(NOT EXISTS "${WINSDK_INCLUDE}/um/WINDOWS.H")
 endif()
 
 # Attempt to find the clang-cl binary
-find_program(CLANG_CL_PATH NAMES clang-cl-${CLANG_VER})
+find_program(CLANG_CL_PATH NAMES clang-cl clang-cl-${CLANG_VER})
 if(${CLANG_CL_PATH} STREQUAL "CLANG_CL_PATH-NOTFOUND")
   message(SEND_ERROR "Unable to find clang-cl-${CLANG_VER}")
 endif()
 
 # Attempt to find the llvm-link binary
-find_program(LLD_LINK_PATH NAMES lld-link-${LLVM_VER})
+find_program(LLD_LINK_PATH NAMES lld-link lld-link-${LLVM_VER})
 if(${LLD_LINK_PATH} STREQUAL "LLD_LINK_PATH-NOTFOUND")
   message(SEND_ERROR "Unable to find lld-link-${LLVM_VER}")
 endif()
 
 # Attempt to find the lld-lib binary
-find_program(LLVM_LIB_PATH NAMES llvm-lib-${LLVM_VER})
+find_program(LLVM_LIB_PATH NAMES llvm-lib llvm-lib-${LLVM_VER})
 if(${LLVM_LIB_PATH} STREQUAL "LLVM_LIB_PATH-NOTFOUND")
   message(SEND_ERROR "Unable to find llvm-lib-${LLVM_VER}")
 endif()
 
 # Attempt to find the llvm-nm binary
-find_program(LLVM_NM_PATH NAMES llvm-nm-${LLVM_VER})
+find_program(LLVM_NM_PATH NAMES llvm-nm llvm-nm-${LLVM_VER})
 if(${LLVM_NM_PATH} STREQUAL "LLVM_NM_PATH-NOTFOUND")
   message(SEND_ERROR "Unable to find llvm-nm-${LLVM_VER}")
 endif()
 
 # Attempt to find the native clang binary
-find_program(CLANG_C_PATH NAMES clang-${CLANG_VER})
+find_program(CLANG_C_PATH NAMES clang clang-${CLANG_VER})
 if(${CLANG_C_PATH} STREQUAL "CLANG_C_PATH-NOTFOUND")
   message(SEND_ERROR "Unable to find clang-${CLANG_VER}")
 endif()
 
 # Attempt to find the native clang++ binary
-find_program(CLANG_CXX_PATH NAMES clang++-${CLANG_VER})
+find_program(CLANG_CXX_PATH NAMES clang++ clang++-${CLANG_VER})
 if(${CLANG_CXX_PATH} STREQUAL "CLANG_CXX_PATH-NOTFOUND")
   message(SEND_ERROR "Unable to find clang++-${CLANG_VER}")
 endif()
 
 # Attempt to find the llvm-rc binary
-find_program(LLVM_RC_PATH NAMES llvm-rc-${LLVM_VER})
+find_program(LLVM_RC_PATH NAMES llvm-rc llvm-rc-${LLVM_VER})
 if(${LLVM_RC_PATH} STREQUAL "LLVM_RC_PATH-NOTFOUND")
   message(SEND_ERROR "Unable to find rc")
 endif()

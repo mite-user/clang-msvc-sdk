@@ -33,5 +33,10 @@ rc_file=$1
 sed -i "s/\xa9/(C)/g;s/\\\\xa9/(C)/g" "$rc_file"
 
 llvm_rc_args+=("$rc_file")
-echo llvm-rc-${LLVM_VER} "${llvm_rc_args[@]}"
-llvm-rc-${LLVM_VER} "${llvm_rc_args[@]}"
+if [ -z "${LLVM_VER}" ]; then
+  echo llvm-rc "${llvm_rc_args[@]}"
+  llvm-rc "${llvm_rc_args[@]}"
+else
+  echo llvm-rc-${LLVM_VER} "${llvm_rc_args[@]}"
+  llvm-rc-${LLVM_VER} "${llvm_rc_args[@]}"
+fi
