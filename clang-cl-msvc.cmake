@@ -110,10 +110,6 @@ else()
   message(SEND_ERROR "Unknown host architecture ${HOST_ARCH}. Must be aarch64 (or arm64), armv7 (or arm), i686 (or x86), or x86_64 (or x64).")
 endif()
 
-if(NOT MSVC_BASE AND NOT WINSDK_BASE AND NOT WINSDK_VER AND NOT XWIN_SPLAT)
-  set(XWIN_SPLAT "$ENV{HOME}/.xwin-cache/splat")
-endif()
-
 if(XWIN_SPLAT)
   set(MSVC_INCLUDE "${XWIN_SPLAT}/crt/include")
   set(MSVC_LIB "${XWIN_SPLAT}/crt/lib")
