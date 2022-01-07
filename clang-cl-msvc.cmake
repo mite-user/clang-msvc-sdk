@@ -70,13 +70,13 @@ init_user_prop(LLVM_VER)
 init_user_prop(CLANG_VER)
 
 if(LLVM_VER STREQUAL "")
-  message(STATUS "LLVM_VER not set assuming version 7")
-  set(LLVM_VER 7)
+  set(LLVM_VER 11)
+  message(STATUS "LLVM_VER not set assuming version ${LLVM_VER}")
 endif()
 
 if(CLANG_VER STREQUAL "")
-  message(STATUS "CLANG_VER not set assuming version 7")
-  set(CLANG_VER 7)
+  set(CLANG_VER 11)
+  message(STATUS "CLANG_VER not set assuming version ${CLANG_VER}")
 endif()
 
 if(NOT HOST_ARCH)
@@ -179,6 +179,12 @@ if(${LLVM_NM_PATH} STREQUAL "LLVM_NM_PATH-NOTFOUND")
   message(SEND_ERROR "Unable to find llvm-nm-${LLVM_VER}")
 endif()
 
+# Attempt to find the llvm-mt binary
+find_program(LLVM_MT_PATH NAMES llvm-mt-${LLVM_VER})
+if(${LLVM_MT_PATH} STREQUAL "LLVM_MT_PATH-NOTFOUND")
+  message(SEND_ERROR "Unable to find llvm-mt-${LLVM_VER}")
+endif()
+
 # Attempt to find the native clang binary
 find_program(CLANG_C_PATH NAMES clang clang-${CLANG_VER})
 if(${CLANG_C_PATH} STREQUAL "CLANG_C_PATH-NOTFOUND")
@@ -206,7 +212,7 @@ set(CMAKE_RC_COMPILER "${CMAKE_CURRENT_LIST_DIR}/llvm-rc-wrapper" CACHE FILEPATH
 set(CMAKE_LINKER "${LLD_LINK_PATH}" CACHE FILEPATH "")
 set(CMAKE_AR "${LLVM_LIB_PATH}" CACHE FILEPATH "")
 set(CMAKE_NM "${LLVM_NM_PATH}" CACHE FILEPATH "")
-set(CMAKE_MT "${CMAKE_CURRENT_LIST_DIR}/mt" CACHE FILEPATH "")
+set(CMAKE_MT "${LLVM_MT_PATH}" CACHE FILEPATH "")
 
 # Even though we're cross-compiling, we need some native tools (e.g. llvm-tblgen), and those
 # native tools have to be built before we can start doing the cross-build.  LLVM supports
