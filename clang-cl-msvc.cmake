@@ -299,11 +299,13 @@ set(CMAKE_MODULE_LINKER_FLAGS "${_CMAKE_MODULE_LINKER_FLAGS_INITIAL} ${LINK_FLAG
 set(_CMAKE_SHARED_LINKER_FLAGS_INITIAL "${CMAKE_SHARED_LINKER_FLAGS}" CACHE STRING "")
 set(CMAKE_SHARED_LINKER_FLAGS "${_CMAKE_SHARED_LINKER_FLAGS_INITIAL} ${LINK_FLAGS}" CACHE STRING "" FORCE)
 
-# CMake populates these with a bunch of unnecessary libraries, which requires
-# extra case-correcting symlinks and what not. Instead, let projects explicitly
-# control which libraries they require.
-set(CMAKE_C_STANDARD_LIBRARIES "" CACHE STRING "" FORCE)
-set(CMAKE_CXX_STANDARD_LIBRARIES "" CACHE STRING "" FORCE)
+if(NOT XWIN_SPLAT AND case_sensitive_filesystem)
+  # CMake populates these with a bunch of unnecessary libraries, which requires
+  # extra case-correcting symlinks and what not. Instead, let projects explicitly
+  # control which libraries they require.
+  set(CMAKE_C_STANDARD_LIBRARIES "" CACHE STRING "" FORCE)
+  set(CMAKE_CXX_STANDARD_LIBRARIES "" CACHE STRING "" FORCE)
+endif()
 
 if(NOT $ENV{VCPKG_TOOLCHAIN} STREQUAL "")
   message(STATUS "Included VCPKG: $ENV{VCPKG_TOOLCHAIN}")
