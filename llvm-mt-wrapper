@@ -14,12 +14,18 @@
 
 echo "${0}: ${@}"
 
-output="$("llvm-mt-${LLVM_VER}" "${@}" 2>&1)"
+if [ -n "${LLVM_VER}" ]; then
+  llvm_mt_exe="llvm-mt-${LLVM_VER}"
+else
+  llvm_mt_exe="llvm-mt"
+fi
+
+output="$("${llvm_mt_exe}" "${@}" 2>&1)"
 res=$?
 
 if [ "$res" -ne 0 ]; then
   if echo "$output" | grep -q "no libxml2"; then
-    echo "llvm-mt-${LLVM_VER} not compiled with libxml2, skipping manifest."
+    echo "${llvm_mt_exe} not compiled with libxml2, skipping manifest."
     exit 0
   fi
   echo "$output"
