@@ -72,11 +72,12 @@ rc_file=$1
 #      Non-ASCII 8-bit codepoint (169) can't occur in a non-Unicode string
 sed -i "s/\xa9/(C)/g;s/\\\\xa9/(C)/g" "$rc_file"
 
-llvm_rc_args+=("$rc_file")
-if [ -z "${LLVM_VER}" ]; then
-  echo llvm-rc "${llvm_rc_args[@]}"
-  llvm-rc "${llvm_rc_args[@]}"
+if [ -n "${LLVM_VER}" ]; then
+  llvm_rc_exe="llvm-rc-${LLVM_VER}"
 else
-  echo llvm-rc-${LLVM_VER} "${llvm_rc_args[@]}"
-  llvm-rc-${LLVM_VER} "${llvm_rc_args[@]}"
+  llvm_rc_exe="llvm-rc"
 fi
+
+llvm_rc_args+=("$rc_file")
+echo "${llvm_rc_exe}" "${llvm_rc_args[@]}"
+"${llvm_rc_exe}" "${llvm_rc_args[@]}"
